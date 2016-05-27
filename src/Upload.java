@@ -79,7 +79,9 @@ public class Upload extends HttpServlet {
 														// type="file"
 														// name="file">
 			String fileName = filePart.getSubmittedFileName();
-			long filesize = filePart.getSize();
+			String filesize = String.valueOf(filePart.getSize());
+			 
+		 
 			InputStream fileContent = filePart.getInputStream();
 
 			System.out.println("See if we can get the filename here " + fileName);
@@ -96,8 +98,8 @@ public class Upload extends HttpServlet {
 			}
 			fileContent.close();
 			outputStream.close();
-			 response.setContentType("text/html");
-			//response.setContentType("application/json");
+			// response.setContentType("text/html");
+			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			// Get the printwriter object from response to write the required
 			// json object to the output stream
@@ -109,10 +111,16 @@ public class Upload extends HttpServlet {
 
 			file.put("name", fileName);
 			file.put("size", filesize);
+			file.put("url", "upload?getfile=" );
+			file.put("thumbnail_url", "upload?getthumb=" );
 			file.put("deleteUrl", "http://example.org/files/picture1.jpg");
 			file.put("deleteType", "DELETE");
-
-			obj.put("files", file);
+			JSONArray filelist = new JSONArray();
+			filelist.add(file);
+		 
+			obj.put("files", filelist);
+			
+			
 			/*
 			 * String jsonresponse =
 			 * 
@@ -130,8 +138,7 @@ public class Upload extends HttpServlet {
 
 			// Assuming your json object is **jsonObject**, perform the
 			// following, it will return your json object
-			//out.print(obj);
-			out.print("haha test");
+			out.print(obj);
 			System.out.println("what can we find from the json" + obj.toJSONString());
 			out.flush();
 			// Actual logic goes here.
