@@ -34,7 +34,7 @@ public class Upload extends HttpServlet {
 
 		// write the inputStream to a FileOutputStream
 		OutputStream outputStream = new FileOutputStream(
-				new File("C:\\Program Files\\Apache Group\\Tomcat 4.1\\webapps\\osr\\Pictures\\test001.pdf"));
+				new File("C:\\Program Files\\Apache Group\\Tomcat 4.1\\webapps\\osr\\Pictures\\"+fileName));
 		System.out.println("See if we can get the steam size " + fileContent.toString());
 		int read = 0;
 		byte[] bytes = new byte[1024];
@@ -88,7 +88,7 @@ public class Upload extends HttpServlet {
 
 			// write the inputStream to a FileOutputStream
 			OutputStream outputStream = new FileOutputStream(
-					new File("C:\\Program Files\\Apache Group\\Tomcat 4.1\\webapps\\osr\\Pictures\\test001.pdf"));
+					new File("C:\\Program Files\\Apache Group\\Tomcat 4.1\\webapps\\osr\\Pictures\\"+fileName));
 			System.out.println("See if we can get the steam size " + fileContent.toString());
 			int read = 0;
 			byte[] bytes = new byte[1024];
