@@ -77,7 +77,8 @@ public class Upload extends HttpServlet {
 		 * });
 		 */
 		String action = request.getParameter("action");
-		System.out.println("The action name of the post is " + action);;
+		String fileprefix = request.getParameter("fileprefix");
+		System.out.println("The action name of the post is " + action+" ***"+ request.getParameter("fileprefix"));;
 		try {
 
 			String Servletname = "http://tj8.trisearch.com.au";
@@ -89,7 +90,8 @@ public class Upload extends HttpServlet {
 				Part filePart = request.getPart("files[]"); // Retrieves <input
 				// type="file"
 				// name="file">
-				String fileName = filePart.getSubmittedFileName();
+				String orgfileName = filePart.getSubmittedFileName();
+				String fileName = fileprefix+orgfileName;
 				String filesize = String.valueOf(filePart.getSize());
 
 				InputStream fileContent = filePart.getInputStream();
@@ -117,11 +119,11 @@ public class Upload extends HttpServlet {
 				PrintWriter out = response.getWriter();
 
 
-				file.put("name", fileName);
+				file.put("name", orgfileName);
 				file.put("size", filesize);
 				file.put("url", Servletname + "/osr/Pictures/" + fileName);
 				file.put("thumbnail_url", "upload?getthumb=");
-				file.put("deleteUrl", Servletname + "/upload/upload?action=delete&filename=" + fileName);
+				file.put("deleteUrl", Servletname + "/upload/upload?action=delete&filename=" +fileName);
 				file.put("deleteType", "DELETE");
 				JSONArray filelist = new JSONArray();
 				filelist.add(file);
